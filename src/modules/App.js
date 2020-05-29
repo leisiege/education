@@ -11,54 +11,51 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-
+import { Layout, Menu } from 'antd';
+import 'antd/dist/antd.css'
+import { Typography } from 'antd';
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+const { Text,Title } = Typography;
 export default function App() {
   return (
     <Router>
-      <div>
-        <ul id="main-ul">
-          <h1 id='main-header'>学习辅助软件</h1>
-          <li>
-            <Link to="/">主页</Link>
-          </li>
-          <li>
-            <Link to="/chinese">语文</Link>
-          </li>
-          <li>
-            <Link to="/math">数学</Link>
-          </li>
-          <li>
-            <Link to="/english">英语</Link>
-          </li>
-          <li>
-            <Link to="/topics">工具</Link>
-          </li>
-          <li>
-            <Link to="/about">关于</Link>
-          </li>
-        </ul>
-
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/chinese">
-            <Chinese />
-          </Route>
-          <Route path="/math">
-            <Math />
-          </Route>
-          <Route path="/english">
-            <English />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Layout>
+        <Header className='header'>
+          <Menu theme="dark" mode="horizontal" >
+            <Menu.Item key="1"><Link to="/">主页</Link></Menu.Item>
+            <Menu.Item key="2"><Link to="/chinese">语文</Link></Menu.Item>
+            <Menu.Item key="3"><Link to="/math">数学</Link></Menu.Item>
+            <Menu.Item key="4"><Link to="/english">英语</Link></Menu.Item>
+            <Menu.Item key="5"><Link to="/topics">工具</Link></Menu.Item>
+            <Menu.Item key="6"><Link to="/about">关于</Link></Menu.Item>
+          </Menu>
+        </Header>
+      </Layout>
+      <Layout>
+        <Content>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/chinese">
+              <Chinese />
+            </Route>
+            <Route path="/math">
+              <Math />
+            </Route>
+            <Route path="/english">
+              <English />
+            </Route>
+            <Route path="/topics">
+              <Topics />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Content>
+      </Layout>
     </Router>
   );
 }

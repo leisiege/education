@@ -6,37 +6,56 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
-
+import { Layout, Menu } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css'
+const { SubMenu } = Menu;
+const { Content, Sider } = Layout;
 
 export default function Topics() {
   let match = useRouteMatch();
   return (
-    <div>
-      <h2>工具</h2>
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
-        </li>
-      </ul>
+    <Layout>
+      <Sider width={200} className="site-layout-background"
+        style={{
+          minHeight: 500
+        }}
+      >
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          style={{ height: 'auto', borderRight: 0 }}
+        >
+          <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+            <Menu.Item key="1">
+              <Link to={`${match.url}/components`}>components</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to={`${match.url}/props-v-state`}>props-v-state</Link>
+            </Menu.Item>
+          </SubMenu>
+        </Menu>
+      </Sider>
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 24,
+          margin: 0,
+          minHeight: 500
+        }}
+      >
+        <Switch>
+          <Route path={`${match.path}/:topicId`}>
+            <Topic />
+          </Route>
+          <Route path={match.path}>
+            <h3>Please select a topic.</h3>
+          </Route>
+        </Switch>
+      </Content>
+    </Layout>
 
-      {/* The Topics page has its own <Switch> with more routes
-          that build on the /topics URL path. You can think of the
-          2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-    </div>
   );
 }
 
